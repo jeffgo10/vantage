@@ -1,8 +1,8 @@
-# Sync Obsidian Vantage notes (+ optional Cursor rules)
+# Sync Obsidian RoamVantage notes (+ optional Cursor rules)
 
-Document recent changes in the Obsidian **Vantage** vault via MCP, and optionally refresh `.cursor/rules/` when agent guidance should match.
+Document recent changes in the Obsidian **RoamVantage** vault via MCP, and optionally refresh `.cursor/rules/` when agent guidance should match.
 
-Follow `.cursor/rules/vantage-knowledge-sync.mdc`.
+Follow `.cursor/rules/roamvantage-knowledge-sync.mdc`.
 
 ## Mode — read trailing user text
 
@@ -20,7 +20,7 @@ If ambiguous, default to **Obsidian + Rules**.
 ## Step 0 — MCP pre-check (required before any Obsidian write)
 
 1. Discover Obsidian tool schemas before calling.
-2. **Probe:** `obsidian_list_files_in_dir` with `{ "dirpath": "Vantage" }`.
+2. **Probe:** `obsidian_list_files_in_dir` with `{ "dirpath": "RoamVantage" }`.
 3. **If probe fails** — stop Obsidian work; report why; still run **Rules only** if requested. Do not call append/patch tools.
 
 ---
@@ -42,12 +42,12 @@ Skip trivial changes (typos, formatting-only).
 
 | Change type | Target note | Action |
 |---|---|---|
-| Phase / roadmap checkbox | `Vantage/Roadmap.md` | Patch relevant phase section |
-| Stack / hosting decision | `Vantage/Tech Stack.md` | Patch or append |
-| Schema / entity change | `Vantage/Data Model.md` | Patch |
-| Viewer / editor UX | `Vantage/Wireframes.md` | Patch |
-| Pricing / tiers | `Vantage/Pricing.md` | Patch |
-| Resolved bug / gotcha | `Vantage/Notes — <short title>.md` | Create or update |
+| Phase / roadmap checkbox | `RoamVantage/Roadmap.md` | Patch relevant phase section |
+| Stack / hosting decision | `RoamVantage/Tech Stack.md` | Patch or append |
+| Schema / entity change | `RoamVantage/Data Model.md` | Patch |
+| Viewer / editor UX | `RoamVantage/Wireframes.md` | Patch |
+| Pricing / tiers | `RoamVantage/Pricing.md` | Patch |
+| Resolved bug / gotcha | `RoamVantage/Notes — <short title>.md` | Create or update |
 
 **Always read before write.** Keep new Notes under ~60 lines.
 
@@ -80,8 +80,8 @@ Skip trivial changes (typos, formatting-only).
 
 ## Step 3 — Update Cursor rules (when mode includes Rules)
 
-- Update `vantage-project.mdc` for cross-cutting facts
-- Add/update topic rules (`vantage-auth.mdc`, `vantage-r2.mdc`, `vantage-viewer.mdc`, …)
+- Update `roamvantage-project.mdc` for cross-cutting facts
+- Add/update topic rules (`roamvantage-auth.mdc`, `roamvantage-r2.mdc`, `roamvantage-viewer.mdc`, …)
 - One concern per file; under ~80 lines
 - Do not duplicate long Obsidian prose into rules — summarize actionable constraints
 
@@ -93,7 +93,7 @@ Skip trivial changes (typos, formatting-only).
 ## Sync complete
 
 **Mode:** Obsidian / Rules / both
-**Obsidian:** updated `Vantage/…` (or skipped: <reason>)
+**Obsidian:** updated `RoamVantage/…` (or skipped: <reason>)
 **Rules:** updated `.cursor/rules/…` (or none)
 **Skipped:** <trivial items>
 ```
@@ -101,9 +101,9 @@ Skip trivial changes (typos, formatting-only).
 ### Typical invocations
 
 ```
-/sync-obsidian-vantage
-/sync-obsidian-vantage obsidian only
-/sync-obsidian-vantage rules only
-/sync-obsidian-vantage both: wired Supabase auth cookies
-/sync-obsidian-vantage R2 upload pipeline notes
+/sync-obsidian-roamvantage
+/sync-obsidian-roamvantage obsidian only
+/sync-obsidian-roamvantage rules only
+/sync-obsidian-roamvantage both: wired Supabase auth cookies
+/sync-obsidian-roamvantage R2 upload pipeline notes
 ```

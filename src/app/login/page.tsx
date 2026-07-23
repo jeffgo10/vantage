@@ -9,7 +9,7 @@ export default function LoginPage() {
     <div className="flex flex-1 flex-col items-center justify-center px-4 py-16">
       <div className="w-full max-w-sm">
         <Link href="/" className="text-xl font-semibold tracking-tight">
-          Vantage
+          RoamVantage
         </Link>
         <h1 className="mt-8 text-2xl font-semibold tracking-tight">Welcome back</h1>
         <p className="mt-2 text-sm text-zinc-500">

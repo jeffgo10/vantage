@@ -1,10 +1,10 @@
 # Update ls-foundry packages (+ optional integration plan)
 
-Bump Vantage’s engine packages published from [ls-foundry](https://github.com/jeffgo10/ls-foundry) and integrate any API or type changes in this repo.
+Bump RoamVantage’s engine packages published from [ls-foundry](https://github.com/jeffgo10/ls-foundry) and integrate any API or type changes in this repo.
 
-Follow `.cursor/rules/vantage-viewer.mdc`, `.cursor/rules/vantage-project.mdc`, and `.cursor/rules/vantage-ls-foundry-boundary.mdc`.
+Follow `.cursor/rules/roamvantage-viewer.mdc`, `.cursor/rules/roamvantage-project.mdc`, and `.cursor/rules/roamvantage-ls-foundry-boundary.mdc`.
 
-**Do not edit, commit, or publish ls-foundry from this session.** If a needed API is missing upstream, give the user a paste-ready brief for an ls-foundry agent (template in `vantage-ls-foundry-boundary.mdc`), then bump here after publish.
+**Do not edit, commit, or publish ls-foundry from this session.** If a needed API is missing upstream, give the user a paste-ready brief for an ls-foundry agent (template in `roamvantage-ls-foundry-boundary.mdc`), then bump here after publish.
 
 ## Mode — read trailing user text
 
@@ -24,7 +24,7 @@ If ambiguous, ask one short clarifying question, then proceed.
 
 Before or instead of bumping, produce a concise integration plan:
 
-1. **Restate features** the user wants in Vantage (editor, public viewer, hotspot UX).
+1. **Restate features** the user wants in RoamVantage (editor, public viewer, hotspot UX).
 2. **Map to ls-foundry** — which package(s) must change upstream vs what can be wired here only:
    - `@jeffgo10/panorama-viewer` — Pannellum React wrapper, hotspot markers, editor primitives (planned)
    - `@jeffgo10/helpers` — only if shared DOM/gesture utilities are needed
@@ -70,13 +70,13 @@ Stop after the plan if mode is **Plan only**. Otherwise continue to Update mode.
 
 Read upstream `package.json` versions and recent changes in:
 - `packages/panorama-viewer/` (when it exists)
-- any other `@jeffgo10/*` package Vantage imports
+- any other `@jeffgo10/*` package RoamVantage imports
 
 Note new exports, props, or breaking type changes. **Read only** — do not edit ls-foundry.
 
 ### 3. Bump packages
 
-Run from repo root (adjust package names to what Vantage actually depends on):
+Run from repo root (adjust package names to what RoamVantage actually depends on):
 
 ```bash
 pnpm up @jeffgo10/panorama-viewer
@@ -102,7 +102,7 @@ Fix type errors and integration gaps. Key surfaces (evolve as wiring lands):
 | Tour editor | `src/app/properties/[id]/edit/` |
 | Public viewer | `src/app/t/[slug]/` |
 | Hotspot styles | `src/app/globals.css` |
-| Rules pins | `.cursor/rules/vantage-viewer.mdc`, `vantage-ls-foundry-boundary.mdc` |
+| Rules pins | `.cursor/rules/roamvantage-viewer.mdc`, `roamvantage-ls-foundry-boundary.mdc` |
 
 Remove duplicate local Pannellum logic once the package covers it.
 
@@ -117,4 +117,4 @@ Summarize for the user:
 
 ### 6. Knowledge sync (if non-trivial changes)
 
-If versions or APIs changed materially, update `.cursor/rules/vantage-viewer.mdc` and pin table in `vantage-ls-foundry-boundary.mdc`. Optionally `/sync-obsidian-vantage`.
+If versions or APIs changed materially, update `.cursor/rules/roamvantage-viewer.mdc` and pin table in `roamvantage-ls-foundry-boundary.mdc`. Optionally `/sync-obsidian-roamvantage`.

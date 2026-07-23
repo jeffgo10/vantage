@@ -1,2 +1,3 @@
+# Scope only — auth for npm.pkg.github.com can live in ~/.npmrc
+# Or add: //npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 @jeffgo10:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}

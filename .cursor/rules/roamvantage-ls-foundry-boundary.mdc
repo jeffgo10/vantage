@@ -1,0 +1,60 @@
+---
+description: Never edit ls-foundry from this repo; hand off 360 engine work with consumer pin rules
+alwaysApply: true
+---
+
+# ls-foundry boundary (roamvantage)
+
+**Never** create, edit, commit, or publish files under `~/projects/ls-foundry` (or any clone of [ls-foundry](https://github.com/jeffgo10/ls-foundry)) from a **roamvantage** agent session. Engine changes belong to an **ls-foundry agent** only.
+
+This repo consumes published `@jeffgo10/*` packages (GitHub Packages) for the 360 engine. Prefer `/update-ls-foundry-packages` after a release. App wrapper: `src/components/viewer/panorama-viewer.tsx`.
+
+## Engine split
+
+| In ls-foundry | In RoamVantage |
+|---|---|
+| Pannellum React wrapper, markers, labels/content UI, edit click-to-place | Properties/scenes/hotspots data, R2 uploads, Supabase Auth, share links, tiers, branding |
+
+**Reject for foundry:** Next.js routes, Supabase/R2/Stripe SDKs, RoamVantage business rules.
+
+## Consumer pins
+
+| Package | Current pin | Notes |
+|---|---|---|
+| `@jeffgo10/panorama-viewer` | **0.1.2** | Wrapper + `transpilePackages` + styles import |
+| Other `@jeffgo10/*` | — | Only add when RoamVantage actually imports them |
+
+## When RoamVantage needs engine work
+
+1. Do **not** patch ls-foundry yourself.
+2. Give the user a **paste-ready brief** for the ls-foundry agent (template below).
+3. After publish, run `/update-ls-foundry-packages` here and wire the app.
+
+## Paste template — ls-foundry agent
+
+```text
+## Task — <short title>
+
+Repo: jeffgo10/ls-foundry.
+
+### Goal
+<what RoamVantage needs and why>
+
+### Required work
+1. Packages / versions to bump (e.g. packages/panorama-viewer → @jeffgo10/panorama-viewer)
+2. API / type changes (props, hotspot shape, imperative handle)
+3. Publish to GitHub Packages; confirm npm view dependencies
+
+### Out of scope
+- RoamVantage routes, Supabase, R2, billing UI
+
+### Done when
+- Published versions + deps verified
+- Tell consumer: run /update-ls-foundry-packages in roamvantage
+```
+
+## Do not
+
+- Edit, commit, or `pnpm publish` from ls-foundry while working in roamvantage
+- Put product/backend logic into `@jeffgo10/*`
+- Assume local `~/projects/ls-foundry` path aliases replace published pins in production

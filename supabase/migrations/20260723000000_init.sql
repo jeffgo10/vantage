@@ -1,4 +1,4 @@
--- Vantage MVP schema (Phase 1)
+-- RoamVantage MVP schema (Phase 1)
 -- Applied automatically by `pnpm db:start` / `pnpm db:reset` (local).
 -- For hosted: `supabase link` then `supabase db push`.
 
