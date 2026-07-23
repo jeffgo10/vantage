@@ -1,0 +1,66 @@
+---
+description: Clean code guidelines — maintainable, readable TypeScript/React for Vantage
+alwaysApply: true
+---
+
+# Clean Code Guidelines
+
+## Constants Over Magic Numbers
+
+- Replace hard-coded values with named constants
+- Use descriptive constant names that explain the value's purpose
+- Prefer `src/lib/constants.ts` for shared product limits (tiers, caps)
+
+## Meaningful Names
+
+- Variables, functions, and classes should reveal their purpose
+- Names should explain why something exists and how it's used
+- Avoid abbreviations unless they're universally understood
+
+## Smart Comments
+
+- Don't comment on what the code does — make the code self-documenting
+- Use comments to explain **why** something is done a certain way
+- Document APIs, complex algorithms, and non-obvious side effects
+
+## Single Responsibility
+
+- Each function should do exactly one thing
+- Functions should be small and focused
+- If a function needs a comment to explain what it does, it should be split
+
+## DRY
+
+- Extract repeated logic into helpers under `src/lib/` (or colocated module helpers)
+- Share common logic through proper abstraction
+- Maintain single sources of truth (types in `src/types/`, schema in `supabase/migrations/`)
+
+## Clean Structure
+
+- Keep related code together (`components/`, `lib/`, `app/` routes)
+- Use consistent file and folder naming (kebab-case files, PascalCase components)
+
+## CSS / Tailwind — Mobile-first
+
+- **Base styles target the smallest viewport.** Add larger layouts with `sm:` / `md:` / `lg:` (min-width), never desktop-first patched by max-width overrides.
+- Progressive enhancement: single column and large tap targets first; sidebars and toolbars at `md+`.
+- Prefer existing CSS variables in `globals.css` (`--accent`, `--border`, etc.) over one-off hex values.
+
+## Encapsulation
+
+- Hide implementation details; expose clear interfaces
+- Move nested conditionals into well-named functions
+
+## Code Quality Maintenance
+
+- Refactor continuously; leave code cleaner than you found it
+- Fix technical debt early when touching related code
+
+## Testing
+
+- Write tests before fixing bugs when practical
+- Keep tests readable; cover edge cases and error conditions
+
+## Version Control
+
+- Clear commit messages; small focused commits; meaningful branch names (`feat/`, `fix/`, `chore/`)

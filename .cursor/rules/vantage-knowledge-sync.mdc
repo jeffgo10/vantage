@@ -1,0 +1,64 @@
+---
+description: Dual-write lasting context to Cursor rules and Obsidian Vantage vault
+alwaysApply: true
+---
+
+# Vantage knowledge sync (Cursor rules + Obsidian)
+
+When you learn or decide something worth keeping — architecture, patterns, resolved bugs, workflow — capture it in **both** places below.
+
+## When to capture
+
+- Non-obvious conventions or constraints discovered while coding
+- Resolved bugs with a non-trivial root cause or fix
+- Architecture or data-flow decisions (R2, Hyperdrive, auth cookies, Pannellum)
+- Local / Cloudflare / Supabase quirks (env vars, bindings, RLS)
+- New API routes or domain types
+
+Skip trivial one-off fixes, typos, and anything already documented.
+
+## Destination 1 — Cursor rules (always)
+
+Create or update focused `.mdc` files in `.cursor/rules/`:
+
+- One concern per file; keep under ~80 lines
+- YAML frontmatter: `description`, `alwaysApply` or `globs`
+- Name by topic: `vantage-auth.mdc`, `vantage-r2.mdc`, `vantage-viewer.mdc`, etc.
+- Prefer updating an existing rule over creating duplicates
+
+## Destination 2 — Obsidian `Vantage/` (when MCP is up)
+
+**MCP server:** `user-MCP_DOCKER`  
+**Vault folder:** `Vantage/`
+
+| Content type | Obsidian target |
+|---|---|
+| Roadmap / phase checkboxes | `Vantage/Roadmap.md` |
+| Tech decisions | `Vantage/Tech Stack.md` |
+| Data model changes | `Vantage/Data Model.md` |
+| Viewer / wireframe notes | `Vantage/Wireframes.md` |
+| Resolved gotchas | New note under `Vantage/` (e.g. `Notes — <topic>.md`) or append to the relevant doc |
+
+Use `obsidian_patch_content` to update a heading; `obsidian_append_content` for dated logs. **Read first** with `obsidian_get_file_contents`.
+
+Also mirror into repo docs when relevant (`README.md`).
+
+**Slash commands:** `/sync-obsidian-vantage`, `/create-github-pr`, `/handoff`, `/update-ls-foundry-packages` — see `.cursor/commands/`.
+
+**`/update-ls-foundry-packages`**
+
+```
+/update-ls-foundry-packages
+/update-ls-foundry-packages update only
+/update-ls-foundry-packages plan: extract Pannellum wrapper + hotspot click-to-place
+/update-ls-foundry-packages plan only: gyroscope support in foundry package
+```
+
+## Pre-check (required before any Obsidian write)
+
+1. Discover tool schemas (`GetMcpTools` / MCP descriptors) before calling.
+2. **Probe:** `obsidian_list_files_in_dir` with `{ "dirpath": "Vantage" }`.
+3. **If probe succeeds** — proceed with Obsidian read/write.
+4. **If probe fails** — still write Cursor rules / repo docs; tell the user Obsidian sync was skipped; do **not** block the primary task.
+
+Never call `obsidian_append_content` or `obsidian_patch_content` without a successful pre-check in the same session.

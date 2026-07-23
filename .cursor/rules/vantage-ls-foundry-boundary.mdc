@@ -1,0 +1,60 @@
+---
+description: Never edit ls-foundry from this repo; hand off 360 engine work with consumer pin rules
+alwaysApply: true
+---
+
+# ls-foundry boundary (vantage)
+
+**Never** create, edit, commit, or publish files under `~/projects/ls-foundry` (or any clone of [ls-foundry](https://github.com/jeffgo10/ls-foundry)) from a **vantage** agent session. Engine changes belong to an **ls-foundry agent** only.
+
+This repo will consume published `@jeffgo10/*` packages (GitHub Packages) for the 360 engine. Prefer `/update-ls-foundry-packages` after a release. Until the package ships, the local wrapper lives at `src/components/viewer/panorama-viewer.tsx`.
+
+## Engine split
+
+| In ls-foundry | In Vantage |
+|---|---|
+| Pannellum React wrapper, hotspot markers, asset loading, editor primitives | Properties/scenes/hotspots data, R2 uploads, Supabase Auth, share links, tiers, branding |
+
+**Reject for foundry:** Next.js routes, Supabase/R2/Stripe SDKs, Vantage business rules.
+
+## Consumer pins (update after first publish)
+
+| Package | Current pin | Notes |
+|---|---|---|
+| `@jeffgo10/panorama-viewer` | **not published yet** | Planned — extract from `src/components/viewer/panorama-viewer.tsx` |
+| Other `@jeffgo10/*` | — | Only add when Vantage actually imports them |
+
+## When Vantage needs engine work
+
+1. Do **not** patch ls-foundry yourself.
+2. Give the user a **paste-ready brief** for the ls-foundry agent (template below).
+3. After publish, run `/update-ls-foundry-packages` here and wire the app.
+
+## Paste template — ls-foundry agent
+
+```text
+## Task — <short title>
+
+Repo: jeffgo10/ls-foundry.
+
+### Goal
+<what Vantage needs and why>
+
+### Required work
+1. Packages / versions to bump (e.g. packages/panorama-viewer → @jeffgo10/panorama-viewer)
+2. API / type changes (props, hotspot shape, imperative handle)
+3. Publish to GitHub Packages; confirm npm view dependencies
+
+### Out of scope
+- Vantage routes, Supabase, R2, billing UI
+
+### Done when
+- Published versions + deps verified
+- Tell consumer: run /update-ls-foundry-packages in vantage
+```
+
+## Do not
+
+- Edit, commit, or `pnpm publish` from ls-foundry while working in vantage
+- Put product/backend logic into `@jeffgo10/*`
+- Assume local `~/projects/ls-foundry` path aliases replace published pins in production

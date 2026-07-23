@@ -1,0 +1,24 @@
+---
+description: 360 viewer — local Pannellum scaffold and planned @jeffgo10/panorama-viewer
+globs: src/components/viewer/**/*.{ts,tsx},src/app/**/edit/**/*.tsx,src/app/t/**/*.tsx
+alwaysApply: false
+---
+
+# Vantage — 360 viewer
+
+## Current (Phase 1 scaffold)
+
+- Local wrapper: `src/components/viewer/panorama-viewer.tsx`
+- Library: Pannellum (CDN assets in scaffold; npm `pannellum` also listed)
+- Used by: `/properties/[id]/edit`, `/t/[slug]`
+- Hotspot CSS classes: `vantage-hotspot-nav`, `vantage-hotspot-info` in `globals.css`
+
+## Target (ls-foundry)
+
+- Package: `@jeffgo10/panorama-viewer` (not published yet)
+- Boundary: `.cursor/rules/vantage-ls-foundry-boundary.mdc`
+- After publish: bump via `/update-ls-foundry-packages`; load with `"use client"` / `dynamic(..., { ssr: false })`; add to `transpilePackages` if needed
+
+## Keep in Vantage
+
+Scene URLs (R2), hotspot CRUD persistence, tour navigation between scenes, watermarks/tiers, public share UX.
