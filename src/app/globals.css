@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f7f7f5;
+  --foreground: #141414;
+  --accent: #1f6b4a;
+  --accent-muted: #e8f2ec;
+  --border: #e4e4e0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-muted: var(--accent-muted);
+  --color-border: var(--border);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.vantage-hotspot-nav {
+  background: rgba(31, 107, 74, 0.9);
+  border-radius: 9999px;
+  width: 36px;
+  height: 36px;
+}
+
+.vantage-hotspot-info {
+  background: rgba(20, 20, 20, 0.75);
+  border-radius: 9999px;
+  width: 28px;
+  height: 28px;
+}

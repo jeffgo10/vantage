@@ -1,0 +1,49 @@
+---
+description: Vantage product overview, stack, routes, and Phase 1 conventions
+alwaysApply: true
+---
+
+# Vantage — Project
+
+PWA for real estate **360° virtual tours**. Agents upload equirectangular panoramas, place navigation hotspots, and share a public link. Buyers view for free; creators pay (Free / Pro $10 / Team $45).
+
+## Stack (locked)
+
+| Layer | Choice |
+|---|---|
+| App | Next.js App Router (`src/app`) |
+| Host | Cloudflare Workers via `@opennextjs/cloudflare` |
+| Images | Cloudflare R2 (`PANORAMAS` binding) |
+| DB / Auth | Supabase Postgres + Auth (local via Docker + CLI; hosted for prod) |
+| Viewer | Pannellum — engine to live in [ls-foundry](https://github.com/jeffgo10/ls-foundry) as `@jeffgo10/panorama-viewer` (local scaffold until published) |
+| Payments | Stripe (Phase 3) |
+
+**Related repos:** 360 engine in ls-foundry; product app here. **Never edit ls-foundry from this repo** — see `vantage-ls-foundry-boundary.mdc`.
+
+Product planning lives in Obsidian `Vantage/` (Kickoff, Roadmap, Data Model, Pricing, Wireframes, Tech Stack).
+
+## MVP scope reminder
+
+Ship Free-tier **features** without Free-tier **limits**. Caps, watermarks, and billing turn on in Phase 3.
+
+## Key routes
+
+| Route | Role |
+|---|---|
+| `/dashboard` | Agent property list |
+| `/properties/new`, `/properties/[id]/edit` | Create / tour editor |
+| `/t/[slug]` | Public viewer (no login) |
+| `/login`, `/signup` | Auth |
+
+## Conventions
+
+- Domain types: `src/types/`
+- Supabase helpers: `src/lib/supabase/`
+- Tier constants: `src/lib/constants.ts`
+- Schema: `supabase/migrations/`
+- Do not add `export const runtime = "edge"` — unsupported by OpenNext Cloudflare
+- Prefer `pnpm` scripts: `dev`, `db:start` / `db:stop` / `db:reset`, `preview`, `deploy`, `cf-typegen`
+
+## Knowledge
+
+Dual-write lasting decisions via `.cursor/rules/vantage-knowledge-sync.mdc` and `/sync-obsidian-vantage`. Session handoff: `/handoff`. PRs: `/create-github-pr`. Engine bumps: `/update-ls-foundry-packages`.
