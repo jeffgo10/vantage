@@ -34,6 +34,7 @@ yarn-error.log*
 .env*
 !.env.example
 .dev.vars
+.npmrc
 
 # open-next / cloudflare
 .open-next/
