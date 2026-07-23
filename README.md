@@ -1,4 +1,4 @@
-# Vantage
+# RoamVantage
 
 PWA for real estate **360° virtual tours**. Agents upload equirectangular panoramas, place navigation hotspots between rooms, and share a public link buyers can open on any device.
 
@@ -12,7 +12,7 @@ Phase 0 (discovery) is complete in Obsidian. This repo is the **Phase 1 foundati
 | Hosting | Cloudflare Workers via `@opennextjs/cloudflare` |
 | Panoramas | Cloudflare R2 |
 | DB / Auth | Supabase (Postgres + Auth) |
-| Viewer | [Pannellum](https://pannellum.org/) — engine moving to `@jeffgo10/panorama-viewer` in [ls-foundry](https://github.com/jeffgo10/ls-foundry) |
+| Viewer | [Pannellum](https://pannellum.org/) via `@jeffgo10/panorama-viewer` ([ls-foundry](https://github.com/jeffgo10/ls-foundry)) |
 | Payments | Stripe (Phase 3) |
 
 GitHub Packages: copy `.npmrc.example` → `.npmrc` and set `GITHUB_TOKEN` (read:packages) before installing `@jeffgo10/*`.
@@ -54,7 +54,7 @@ Open [http://localhost:3000](http://localhost:3000). Studio UI: [http://127.0.0.
 
 ```bash
 # Create R2 bucket once (requires wrangler login)
-pnpm exec wrangler r2 bucket create vantage-panoramas
+pnpm exec wrangler r2 bucket create roamvantage-panoramas
 
 pnpm preview   # build + local Workers runtime
 pnpm deploy    # build + deploy to Cloudflare

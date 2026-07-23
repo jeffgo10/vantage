@@ -22,13 +22,24 @@ export default async function PublicTourPage({ params }: PageProps) {
     <div className="relative h-dvh w-full overflow-hidden bg-black">
       <PanoramaViewer
         imageUrl="https://pannellum.org/images/alma.jpg"
-        hotspots={[
+        markers={[
           {
             id: "public-nav",
             yaw: 100,
             pitch: -5,
-            type: "navigation",
-            text: "Continue",
+            kind: "navigation",
+            title: "Continue",
+          },
+          {
+            id: "public-info",
+            yaw: -30,
+            pitch: -8,
+            kind: "info",
+            title: "Details",
+            content: {
+              type: "text",
+              body: "Bright living room with hardwood floors.",
+            },
           },
         ]}
         className="absolute inset-0 h-full w-full"
@@ -36,7 +47,7 @@ export default async function PublicTourPage({ params }: PageProps) {
 
       {/* Free-tier watermark — Phase 3 will gate on subscription */}
       <div className="pointer-events-none absolute left-3 top-3 z-10 rounded bg-black/45 px-2.5 py-1 text-xs font-medium text-white/90">
-        Made with Vantage
+        Made with RoamVantage
       </div>
 
       <div className="absolute right-3 top-3 z-10 flex gap-2">

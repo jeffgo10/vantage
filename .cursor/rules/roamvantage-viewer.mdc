@@ -1,0 +1,26 @@
+---
+description: 360 viewer — @jeffgo10/panorama-viewer integration
+globs: src/components/viewer/**/*.{ts,tsx},src/app/**/edit/**/*.tsx,src/app/t/**/*.tsx
+alwaysApply: false
+---
+
+# RoamVantage — 360 viewer
+
+## Package
+
+- `@jeffgo10/panorama-viewer@0.1.2` (ls-foundry)
+- App wrapper: `src/components/viewer/panorama-viewer.tsx` (`dynamic` + `ssr: false` + styles)
+- `transpilePackages: ["@jeffgo10/panorama-viewer"]` in `next.config.ts`
+- Import CSS via wrapper (`@jeffgo10/panorama-viewer/styles.css`) — do not re-add local Pannellum CDN
+
+## Usage
+
+- Props: `imageUrl`, `markers` (`PanoramaMarker`), `mode` (`view` | `edit`), `onSphereClick`, `onMarkerClick`, `fitParent`
+- Marker kinds: `navigation` | `info` | `label`; content types: text / image / html / rich
+- Used by: `/properties/[id]/edit`, `/t/[slug]`
+
+## Keep in RoamVantage
+
+Scene URLs (R2), hotspot CRUD persistence, tour navigation between scenes, watermarks/tiers, public share UX.
+
+Bump: `/update-ls-foundry-packages`. Boundary: `roamvantage-ls-foundry-boundary.mdc`.

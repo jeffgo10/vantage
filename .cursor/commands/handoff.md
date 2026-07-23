@@ -34,7 +34,7 @@ If ambiguous, default to **Full handoff**.
    ```
 4. **Changed files** — paths only; do not paste full diffs.
 5. **Terminals** — ports / long-running commands if relevant (`pnpm dev` → `:3000`).
-6. **Cursor artifacts** — rules, commands, MCP (Obsidian `Vantage/`).
+6. **Cursor artifacts** — rules, commands, MCP (Obsidian `RoamVantage/`).
 7. **External refs** — PRs, Obsidian notes — path or URL only.
 
 **Do not duplicate** PRDs, plans, ADRs, issues, commits, or diffs — **reference by path**.  
@@ -49,7 +49,7 @@ If ambiguous, default to **Full handoff**.
 | macOS / Linux | `$TMPDIR` or `/tmp` |
 | Windows | `%TEMP%` |
 
-**Filename:** `cursor-handoff-vantage-<YYYYMMDD-HHMM>.md`  
+**Filename:** `cursor-handoff-roamvantage-<YYYYMMDD-HHMM>.md`  
 Tell the user the **full absolute path** when done.
 
 ### Template
@@ -96,19 +96,19 @@ Tell the user the **full absolute path** when done.
 
 ### Rules to read first
 
-- `.cursor/rules/vantage-project.mdc` — overview
+- `.cursor/rules/roamvantage-project.mdc` — overview
 - …
 
 ### Suggested slash commands
 
 - `/create-github-pr` — open PR into `master`
-- `/sync-obsidian-vantage` — dual-write vault + rules
+- `/sync-obsidian-roamvantage` — dual-write vault + rules
 - `/update-ls-foundry-packages` — bump `@jeffgo10/*` after engine publish
 - `/handoff` — another handoff
 
 ### MCP / tools
 
-- Obsidian `Vantage/` via `user-MCP_DOCKER`
+- Obsidian `RoamVantage/` via `user-MCP_DOCKER`
 
 ### Recommended Cursor mode
 
@@ -117,17 +117,17 @@ Tell the user the **full absolute path** when done.
 
 ---
 
-## Step 3 — Vantage defaults
+## Step 3 — RoamVantage defaults
 
 | Topic | Read first |
 |---|---|
-| Project overview | `.cursor/rules/vantage-project.mdc`, `README.md` |
-| Knowledge sync | `.cursor/rules/vantage-knowledge-sync.mdc` |
+| Project overview | `.cursor/rules/roamvantage-project.mdc`, `README.md` |
+| Knowledge sync | `.cursor/rules/roamvantage-knowledge-sync.mdc` |
 | Clean code / UI | `.cursor/rules/clean-code.mdc`, `.cursor/rules/UI-UX/` |
-| ls-foundry boundary | `.cursor/rules/vantage-ls-foundry-boundary.mdc` |
-| 360 viewer | `.cursor/rules/vantage-viewer.mdc` |
+| ls-foundry boundary | `.cursor/rules/roamvantage-ls-foundry-boundary.mdc` |
+| 360 viewer | `.cursor/rules/roamvantage-viewer.mdc` |
 | Open PR | `/create-github-pr` |
-| Obsidian | `/sync-obsidian-vantage` |
+| Obsidian | `/sync-obsidian-roamvantage` |
 | Bump engine packages | `/update-ls-foundry-packages` |
 
 ---

@@ -1,9 +1,9 @@
 ---
-description: Vantage product overview, stack, routes, and Phase 1 conventions
+description: RoamVantage product overview, stack, routes, and Phase 1 conventions
 alwaysApply: true
 ---
 
-# Vantage — Project
+# RoamVantage — Project
 
 PWA for real estate **360° virtual tours**. Agents upload equirectangular panoramas, place navigation hotspots, and share a public link. Buyers view for free; creators pay (Free / Pro $10 / Team $45).
 
@@ -15,12 +15,12 @@ PWA for real estate **360° virtual tours**. Agents upload equirectangular panor
 | Host | Cloudflare Workers via `@opennextjs/cloudflare` |
 | Images | Cloudflare R2 (`PANORAMAS` binding) |
 | DB / Auth | Supabase Postgres + Auth (local via Docker + CLI; hosted for prod) |
-| Viewer | Pannellum — engine to live in [ls-foundry](https://github.com/jeffgo10/ls-foundry) as `@jeffgo10/panorama-viewer` (local scaffold until published) |
+| Viewer | Pannellum via `@jeffgo10/panorama-viewer` ([ls-foundry](https://github.com/jeffgo10/ls-foundry)) |
 | Payments | Stripe (Phase 3) |
 
-**Related repos:** 360 engine in ls-foundry; product app here. **Never edit ls-foundry from this repo** — see `vantage-ls-foundry-boundary.mdc`.
+**Related repos:** 360 engine in ls-foundry; product app here. **Never edit ls-foundry from this repo** — see `roamvantage-ls-foundry-boundary.mdc`.
 
-Product planning lives in Obsidian `Vantage/` (Kickoff, Roadmap, Data Model, Pricing, Wireframes, Tech Stack).
+Product planning lives in Obsidian `RoamVantage/` (Kickoff, Roadmap, Data Model, Pricing, Wireframes, Tech Stack).
 
 ## MVP scope reminder
 
@@ -46,4 +46,4 @@ Ship Free-tier **features** without Free-tier **limits**. Caps, watermarks, and 
 
 ## Knowledge
 
-Dual-write lasting decisions via `.cursor/rules/vantage-knowledge-sync.mdc` and `/sync-obsidian-vantage`. Session handoff: `/handoff`. PRs: `/create-github-pr`. Engine bumps: `/update-ls-foundry-packages`.
+Dual-write lasting decisions via `.cursor/rules/roamvantage-knowledge-sync.mdc` and `/sync-obsidian-roamvantage`. Session handoff: `/handoff`. PRs: `/create-github-pr`. Engine bumps: `/update-ls-foundry-packages`.

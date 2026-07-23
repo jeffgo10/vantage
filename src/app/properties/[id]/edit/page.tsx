@@ -58,13 +58,24 @@ export default async function TourEditorPage({ params }: PageProps) {
         <section className="relative min-w-0 flex-1 bg-zinc-900">
           <PanoramaViewer
             imageUrl="https://pannellum.org/images/alma.jpg"
-            hotspots={[
+            mode="edit"
+            markers={[
               {
                 id: "demo-nav",
                 yaw: 100,
                 pitch: -5,
-                type: "navigation",
-                text: "To kitchen",
+                kind: "navigation",
+                title: "To kitchen",
+              },
+              {
+                id: "demo-label",
+                yaw: -40,
+                pitch: 0,
+                kind: "label",
+                content: {
+                  type: "text",
+                  body: "Living room",
+                },
               },
             ]}
             className="absolute inset-0 h-full w-full"

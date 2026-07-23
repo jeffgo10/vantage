@@ -8,7 +8,7 @@ export default function HomePage() {
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_#e8f2ec_0%,_#f7f7f5_45%,_#efece6_100%)]"
       />
       <header className="relative z-10 flex items-center justify-between px-6 py-5">
-        <span className="text-xl font-semibold tracking-tight">Vantage</span>
+        <span className="text-xl font-semibold tracking-tight">RoamVantage</span>
         <nav className="flex items-center gap-3 text-sm">
           <Link href="/login" className="text-zinc-600 hover:text-zinc-900">
             Log in
@@ -30,7 +30,7 @@ export default function HomePage() {
           Walk a property in 360° — then share the link.
         </h1>
         <p className="mt-4 max-w-lg text-lg leading-relaxed text-zinc-600">
-          Vantage lets agents stitch panoramic rooms into a navigable tour buyers can open on any
+          RoamVantage lets agents stitch panoramic rooms into a navigable tour buyers can open on any
           device. No app store. No Matterport price tag.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">

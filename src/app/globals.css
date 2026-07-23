@@ -23,17 +23,3 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
-
-.vantage-hotspot-nav {
-  background: rgba(31, 107, 74, 0.9);
-  border-radius: 9999px;
-  width: 36px;
-  height: 36px;
-}
-
-.vantage-hotspot-info {
-  background: rgba(20, 20, 20, 0.75);
-  border-radius: 9999px;
-  width: 28px;
-  height: 28px;
-}

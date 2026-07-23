@@ -1,7 +1,7 @@
-/* Vantage PWA service worker — offline shell scaffold (Phase 1).
+/* RoamVantage PWA service worker — offline shell scaffold (Phase 1).
    Phase 2+ will cache panorama assets more aggressively. */
 
-const CACHE = "vantage-shell-v1";
+const CACHE = "roamvantage-shell-v1";
 const PRECACHE = ["/", "/dashboard", "/manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {

@@ -15,15 +15,15 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Vantage",
-    template: "%s · Vantage",
+    default: "RoamVantage",
+    template: "%s · RoamVantage",
   },
   description: "Create and share immersive 360° virtual property tours.",
-  applicationName: "Vantage",
+  applicationName: "RoamVantage",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Vantage",
+    title: "RoamVantage",
   },
   manifest: "/manifest.webmanifest",
 };

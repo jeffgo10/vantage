@@ -1,7 +1,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "main": ".open-next/worker.js",
-  "name": "vantage",
+  "name": "roamvantage",
   "compatibility_date": "2026-07-23",
   "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
   "assets": {
@@ -11,13 +11,13 @@
   "services": [
     {
       "binding": "WORKER_SELF_REFERENCE",
-      "service": "vantage"
+      "service": "roamvantage"
     }
   ],
   "r2_buckets": [
     {
       "binding": "PANORAMAS",
-      "bucket_name": "vantage-panoramas"
+      "bucket_name": "roamvantage-panoramas"
     }
   ],
   "images": {
