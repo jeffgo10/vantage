@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@jeffgo10/panorama-viewer':
-        specifier: 0.1.2
-        version: 0.1.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: 0.2.0
+        version: 0.2.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@supabase/ssr':
         specifier: ^0.12.3
         version: 0.12.3(@supabase/supabase-js@2.110.8)
@@ -957,8 +957,8 @@ packages:
     resolution: {integrity: sha512-AokJm4tuBHillT+FpMtxQ60n8ObyXBatq7jD2/JA9dxbDDokKQm8KMht5ibGzLVU9IJDIKK4TPKgMHEYMn3lMg==}
     engines: {node: '>=18'}
 
-  '@jeffgo10/panorama-viewer@0.1.2':
-    resolution: {integrity: sha512-qtiKtDNxiptjTx3A2L1Q0o5NLg3zt7oC1oxvot/XkrS4v70MK8Sx8cs41Vnfz8sIGd8hSFGEkokmdZEYpv9w5A==, tarball: https://npm.pkg.github.com/download/@jeffgo10/panorama-viewer/0.1.2/d4abca3527b0fc7b7327218e5e48beb837a5fbd4}
+  '@jeffgo10/panorama-viewer@0.2.0':
+    resolution: {integrity: sha512-26YnnGtJ6kEsHqXgkwKVU9Vey57bg6aHnlHtG++nkPgAAi8EHUZz15jOCgFlH4RiP5xpYg5vEmTgOyYusRByuA==, tarball: https://npm.pkg.github.com/download/@jeffgo10/panorama-viewer/0.2.0/93a3bfaf7ccc70ade5f6550fd747f294c09170ec}
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
@@ -4561,7 +4561,7 @@ snapshots:
 
   '@isaacs/cliui@9.0.0': {}
 
-  '@jeffgo10/panorama-viewer@0.1.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@jeffgo10/panorama-viewer@0.2.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       pannellum: 2.5.7
       react: 19.2.4

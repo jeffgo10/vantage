@@ -33,7 +33,7 @@ If ambiguous, default to **Full handoff**.
    git log -5 --oneline
    ```
 4. **Changed files** — paths only; do not paste full diffs.
-5. **Terminals** — ports / long-running commands if relevant (`pnpm dev` → `:3000`).
+5. **Terminals** — ports / long-running commands if relevant (`pnpm dev` → `:3200`).
 6. **Cursor artifacts** — rules, commands, MCP (Obsidian `RoamVantage/`).
 7. **External refs** — PRs, Obsidian notes — path or URL only.
 

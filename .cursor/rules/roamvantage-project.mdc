@@ -30,13 +30,15 @@ Ship Free-tier **features** without Free-tier **limits**. Caps, watermarks, and 
 
 | Route | Role |
 |---|---|
-| `/dashboard` | Agent property list |
-| `/properties/new`, `/properties/[id]/edit` | Create / tour editor |
+| `/dashboard` | Agent views overview (mocked metrics until Phase 3) |
+| `/tours` | Agent tour list |
+| `/tours/new`, `/tours/[id]/edit` | Create / tour editor |
 | `/t/[slug]` | Public viewer (no login) |
 | `/login`, `/signup` | Auth |
 
 ## Conventions
 
+- Domain noun: **Tour** (UI, routes `/tours/*`, table `tours`) — not “property”
 - Domain types: `src/types/`
 - Supabase helpers: `src/lib/supabase/`
 - Tier constants: `src/lib/constants.ts`

@@ -1,0 +1,23 @@
+---
+description: RoamVantage Supabase Auth patterns
+globs:
+  - src/lib/auth/**
+  - src/lib/supabase/**
+  - src/app/login/**
+  - src/app/signup/**
+  - src/app/auth/**
+  - src/middleware.ts
+alwaysApply: false
+---
+
+# RoamVantage — Auth
+
+- Clients: `src/lib/supabase/{client,server,middleware}.ts` (`@supabase/ssr`)
+- Actions: `src/lib/auth/actions.ts` — `signUp` / `signIn` / `signOut` (email+password; Google deferred)
+- Callback: `/auth/callback` exchanges `code` for session
+- Middleware: refreshes session; protects `/dashboard` and `/tours/*`; redirects authed users away from `/login` `/signup`; `/t/*` stays public
+- Profile row: DB trigger `handle_new_user` on `auth.users` (reads `raw_user_meta_data.name`)
+- Local: confirmations off in `supabase/config.toml` — signup returns a session immediately
+- Errors: redirect with `?error=` + `AuthError` component
+
+Do not add `export const runtime = "edge"`.

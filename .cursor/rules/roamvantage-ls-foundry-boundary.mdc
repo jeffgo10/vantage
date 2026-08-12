@@ -13,7 +13,7 @@ This repo consumes published `@jeffgo10/*` packages (GitHub Packages) for the 36
 
 | In ls-foundry | In RoamVantage |
 |---|---|
-| Pannellum React wrapper, markers, labels/content UI, edit click-to-place | Properties/scenes/hotspots data, R2 uploads, Supabase Auth, share links, tiers, branding |
+| Pannellum React wrapper, markers, labels/content UI, edit click-to-place | Tours/scenes/hotspots data, R2 uploads, Supabase Auth, share links, tiers, branding |
 
 **Reject for foundry:** Next.js routes, Supabase/R2/Stripe SDKs, RoamVantage business rules.
 
@@ -21,7 +21,7 @@ This repo consumes published `@jeffgo10/*` packages (GitHub Packages) for the 36
 
 | Package | Current pin | Notes |
 |---|---|---|
-| `@jeffgo10/panorama-viewer` | **0.1.2** | Wrapper + `transpilePackages` + styles import |
+| `@jeffgo10/panorama-viewer` | **0.2.0** | Gyro + marker drag; wrapper + `transpilePackages` + styles |
 | Other `@jeffgo10/*` | — | Only add when RoamVantage actually imports them |
 
 ## When RoamVantage needs engine work

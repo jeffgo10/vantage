@@ -1,7 +1,7 @@
 /** Domain types — mirrors Supabase schema (see supabase/migrations). */
 
 export type SubscriptionTier = "free" | "pro" | "team";
-export type PropertyStatus = "draft" | "active" | "archived";
+export type TourStatus = "draft" | "active" | "archived";
 export type HotspotType = "navigation" | "info";
 
 export interface User {
@@ -22,21 +22,26 @@ export interface Team {
   created_at: string;
 }
 
-export interface Property {
+export interface Tour {
   id: string;
   owner_user_id: string | null;
   owner_team_id: string | null;
   title: string;
   address: string | null;
-  status: PropertyStatus;
+  status: TourStatus;
   slug: string;
   created_at: string;
   updated_at: string;
 }
 
+/** Tour row for list UIs, with first-scene preview URL when available. */
+export interface TourListItem extends Tour {
+  thumbnailUrl: string | null;
+}
+
 export interface Scene {
   id: string;
-  property_id: string;
+  tour_id: string;
   image_url: string;
   order: number;
   title: string;
@@ -57,7 +62,7 @@ export interface Hotspot {
 /** Paid-tier analytics — Phase 3+ */
 export interface Lead {
   id: string;
-  property_id: string;
+  tour_id: string;
   name: string;
   email: string;
   phone: string | null;
@@ -66,13 +71,13 @@ export interface Lead {
 
 export interface ViewEvent {
   id: string;
-  property_id: string;
+  tour_id: string;
   scene_id: string | null;
   session_id: string;
   viewed_at: string;
 }
 
-export interface PropertyWithScenes extends Property {
+export interface TourWithScenes extends Tour {
   scenes: Scene[];
 }
 
@@ -80,6 +85,8 @@ export interface SceneWithHotspots extends Scene {
   hotspots: Hotspot[];
 }
 
-export interface TourPayload extends Property {
+export interface TourPayload extends Tour {
   scenes: SceneWithHotspots[];
+  /** Owner email for Free-tier "Get in touch" mailto; null when unknown. */
+  contact_email: string | null;
 }

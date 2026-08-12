@@ -1,0 +1,16 @@
+---
+description: Agent dashboard is a mocked views overview; tour list lives at /tours
+globs:
+  - src/app/dashboard/**
+  - src/components/dashboard/**
+  - src/lib/analytics/**
+alwaysApply: false
+---
+
+# Dashboard analytics (mocked)
+
+- **`/dashboard`** — viewing overview: summary cards, SVG charts, recent activity.
+- Metrics come from [`src/lib/analytics/mock-dashboard.ts`](src/lib/analytics/mock-dashboard.ts) until Phase 3 `view_events` tracking.
+- **Active tours** count is the only live number (from `listOwnedTours()`).
+- **Views by tour** prefers real owned tour titles when present; view counts stay mocked.
+- Tour list is **`/tours`**, not the dashboard.

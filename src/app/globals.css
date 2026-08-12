@@ -1,25 +1,104 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f7f5;
-  --foreground: #141414;
-  --accent: #1f6b4a;
-  --accent-muted: #e8f2ec;
-  --border: #e4e4e0;
+  /* Deep forest teal — primary canvas */
+  --background: #092223;
+  --foreground: #ffffff;
+
+  /* Soft seafoam for secondary copy */
+  --muted: #a3c4c5;
+
+  /* Lifted panels against the canvas */
+  --surface: #0d2e2f;
+  --surface-elevated: #143a3b;
+
+  /* Brand mint */
+  --accent: #85ee96;
+  --accent-hover: #9ef3ac;
+  --accent-foreground: #092223;
+  --accent-muted: #114244;
+
+  /* Edges + complementary aqua spark */
+  --border: #1a4546;
+  --border-strong: #2a5a5c;
+  --highlight: #5fd4c8;
+
+  --danger: #ff9b9b;
+  --danger-muted: #3a2224;
+  --danger-border: #5c3436;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
   --color-accent-muted: var(--accent-muted);
   --color-border: var(--border);
-  --font-sans: var(--font-geist-sans);
+  --color-border-strong: var(--border-strong);
+  --color-highlight: var(--highlight);
+  --color-danger: var(--danger);
+  --color-danger-muted: var(--danger-muted);
+  --color-danger-border: var(--danger-border);
+  --font-sans: var(--font-hubot-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+html {
+  color-scheme: dark;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-hubot-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Shared form field look */
+input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+textarea,
+select {
+  background-color: var(--surface);
+  color: var(--foreground);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: color-mix(in srgb, var(--muted) 80%, transparent);
+}
+
+/* Page entrance — quick rise + fade (Beacon / qr-maker pattern) */
+@keyframes page-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-rise {
+  animation: page-rise 0.7s ease both;
+}
+
+.page-rise-delay-1 {
+  animation: page-rise 0.8s ease 0.08s both;
+}
+
+.page-rise-delay-2 {
+  animation: page-rise 0.85s ease 0.12s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-rise,
+  .page-rise-delay-1,
+  .page-rise-delay-2 {
+    animation: none;
+  }
 }

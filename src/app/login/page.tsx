@@ -1,49 +1,59 @@
 import Link from "next/link";
+import { AuthError } from "@/components/auth/auth-error";
+import { BrandLogo } from "@/components/layout/brand-logo";
+import { signIn } from "@/lib/auth/actions";
 
 export const metadata = {
   title: "Log in",
 };
 
-export default function LoginPage() {
+type PageProps = {
+  searchParams: Promise<{ error?: string; next?: string }>;
+};
+
+export default async function LoginPage({ searchParams }: PageProps) {
+  const { error, next } = await searchParams;
+
   return (
     <div className="flex flex-1 flex-col items-center justify-center px-4 py-16">
-      <div className="w-full max-w-sm">
-        <Link href="/" className="text-xl font-semibold tracking-tight">
-          RoamVantage
-        </Link>
-        <h1 className="mt-8 text-2xl font-semibold tracking-tight">Welcome back</h1>
-        <p className="mt-2 text-sm text-zinc-500">
-          Supabase Auth (email + Google) wires up next. Placeholder form for now.
-        </p>
+      <div className="page-rise w-full max-w-sm">
+        <BrandLogo priority />
+        <h1 className="mt-8 text-2xl font-semibold tracking-tight text-foreground">Welcome back</h1>
+        <p className="mt-2 text-sm text-muted">Log in with your email and password.</p>
 
-        <form className="mt-8 space-y-4" action="/dashboard">
+        <AuthError message={error} />
+
+        <form className="mt-8 space-y-4" action={signIn}>
+          {next ? <input type="hidden" name="next" value={next} /> : null}
           <label className="block">
-            <span className="mb-1.5 block text-sm font-medium">Email</span>
+            <span className="mb-1.5 block text-sm font-medium text-foreground">Email</span>
             <input
               type="email"
               name="email"
               required
-              className="w-full rounded-md border border-border bg-white px-3 py-2 text-sm outline-none focus:border-accent"
+              autoComplete="email"
+              className="w-full rounded-md border border-border px-3 py-2 text-sm outline-none focus:border-accent"
             />
           </label>
           <label className="block">
-            <span className="mb-1.5 block text-sm font-medium">Password</span>
+            <span className="mb-1.5 block text-sm font-medium text-foreground">Password</span>
             <input
               type="password"
               name="password"
               required
-              className="w-full rounded-md border border-border bg-white px-3 py-2 text-sm outline-none focus:border-accent"
+              autoComplete="current-password"
+              className="w-full rounded-md border border-border px-3 py-2 text-sm outline-none focus:border-accent"
             />
           </label>
           <button
             type="submit"
-            className="w-full rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-white hover:bg-[#185a3e]"
+            className="w-full rounded-md bg-accent px-4 py-2.5 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
           >
             Continue
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-zinc-500">
+        <p className="mt-6 text-center text-sm text-muted">
           No account?{" "}
           <Link href="/signup" className="font-medium text-accent hover:underline">
             Sign up
