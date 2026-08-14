@@ -13,11 +13,13 @@ alwaysApply: false
 # RoamVantage — Auth
 
 - Clients: `src/lib/supabase/{client,server,middleware}.ts` (`@supabase/ssr`)
-- Actions: `src/lib/auth/actions.ts` — `signUp` / `signIn` / `signOut` (email+password; Google deferred)
-- Callback: `/auth/callback` exchanges `code` for session
+- Actions: `src/lib/auth/actions.ts` — `signUp` / `signIn` / `resendSignupConfirmation` / `signOut`
+- Callback: `/auth/callback` exchanges `code` for session; maps `otp_expired` / `access_denied` → `?error=confirm_expired`
+- Login: `ResendConfirmationForm` for expired/unconfirmed; also reads Supabase hash errors (`#error_code=otp_expired`)
+- Hosted: signup with no session → `/login?message=check_email` (email confirmation required)
+- Local: confirmations off in `supabase/config.toml` — signup returns a session immediately
 - Middleware: refreshes session; protects `/dashboard` and `/tours/*`; redirects authed users away from `/login` `/signup`; `/t/*` stays public
 - Profile row: DB trigger `handle_new_user` on `auth.users` (reads `raw_user_meta_data.name`)
-- Local: confirmations off in `supabase/config.toml` — signup returns a session immediately
-- Errors: redirect with `?error=` + `AuthError` component
+- Errors: stable codes in `src/lib/auth/login-messages.ts` + `AuthError` / `AuthMessage`
 
 Do not add `export const runtime = "edge"`.
