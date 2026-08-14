@@ -1,2 +1,2 @@
 -- Optional local seed data (applied on `supabase db reset`).
--- Keep empty until Phase 1 auth + sample properties land.
+-- Keep empty until Phase 1 auth + sample tours land.

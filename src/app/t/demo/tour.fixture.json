@@ -1,0 +1,114 @@
+{
+  "id": "fixture-demo-tour",
+  "owner_user_id": null,
+  "owner_team_id": null,
+  "title": "Beautify Cozy Home",
+  "address": "Demo listing \u2014 fixture tour",
+  "status": "active",
+  "slug": "demo",
+  "created_at": "2026-08-09T00:00:00.000Z",
+  "updated_at": "2026-08-09T00:00:00.000Z",
+  "contact_email": "demo@roamvantage.local",
+  "scenes": [
+    {
+      "id": "demo-scene-living",
+      "tour_id": "fixture-demo-tour",
+      "image_url": "/demo-scenes/demo-living.png",
+      "order": 0,
+      "title": "Living room",
+      "created_at": "2026-08-09T00:00:00.000Z",
+      "hotspots": [
+        {
+          "id": "demo-hs-living-to-kitchen",
+          "scene_id": "demo-scene-living",
+          "type": "navigation",
+          "target_scene_id": "demo-scene-kitchen",
+          "position_yaw": 70,
+          "position_pitch": -8,
+          "content": null,
+          "created_at": "2026-08-09T00:00:00.000Z"
+        },
+        {
+          "id": "demo-hs-living-info",
+          "scene_id": "demo-scene-living",
+          "type": "info",
+          "target_scene_id": null,
+          "position_yaw": -90,
+          "position_pitch": -2,
+          "content": "Open-plan living area with natural light \u2014 fixture demo content.",
+          "created_at": "2026-08-09T00:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "demo-scene-kitchen",
+      "tour_id": "fixture-demo-tour",
+      "image_url": "/demo-scenes/demo-kitchen.png",
+      "order": 1,
+      "title": "Kitchen",
+      "created_at": "2026-08-09T00:00:00.000Z",
+      "hotspots": [
+        {
+          "id": "demo-hs-kitchen-to-living",
+          "scene_id": "demo-scene-kitchen",
+          "type": "navigation",
+          "target_scene_id": "demo-scene-living",
+          "position_yaw": 3,
+          "position_pitch": -5,
+          "content": null,
+          "created_at": "2026-08-09T00:00:00.000Z"
+        },
+        {
+          "id": "demo-hs-kitchen-to-backyard",
+          "scene_id": "demo-scene-kitchen",
+          "type": "navigation",
+          "target_scene_id": "demo-scene-backyard",
+          "position_yaw": -90,
+          "position_pitch": 0,
+          "content": null,
+          "created_at": "2026-08-09T00:00:00.000Z"
+        },
+        {
+          "id": "demo-hs-kitchen-info",
+          "scene_id": "demo-scene-kitchen",
+          "type": "info",
+          "target_scene_id": null,
+          "position_yaw": 130,
+          "position_pitch": 0,
+          "content": "Updated appliances and island seating for everyday cooking.",
+          "created_at": "2026-08-09T00:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "id": "demo-scene-backyard",
+      "tour_id": "fixture-demo-tour",
+      "image_url": "/demo-scenes/demo-backyard.png",
+      "order": 2,
+      "title": "Backyard",
+      "created_at": "2026-08-09T00:00:00.000Z",
+      "hotspots": [
+        {
+          "id": "demo-hs-backyard-to-kitchen",
+          "scene_id": "demo-scene-backyard",
+          "type": "navigation",
+          "target_scene_id": "demo-scene-kitchen",
+          "position_yaw": 0,
+          "position_pitch": -10,
+          "content": null,
+          "created_at": "2026-08-09T00:00:00.000Z"
+        },
+        {
+          "id": "demo-hs-backyard-info",
+          "scene_id": "demo-scene-backyard",
+          "type": "info",
+          "target_scene_id": null,
+          "position_yaw": 180,
+          "position_pitch": -4,
+          "content": "Private outdoor space \u2014 great for morning coffee or evening hangouts.",
+          "created_at": "2026-08-09T00:00:00.000Z"
+        }
+      ]
+    }
+  ]
+}

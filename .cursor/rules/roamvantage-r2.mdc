@@ -1,0 +1,25 @@
+---
+description: RoamVantage R2 panorama upload and media serving
+globs:
+  - src/lib/r2/**
+  - src/app/api/uploads/**
+  - src/app/api/media/**
+  - src/components/editor/**
+alwaysApply: false
+---
+
+# RoamVantage — R2 panoramas
+
+- Binding: `PANORAMAS` → bucket `roamvantage-panoramas` (`wrangler.jsonc`)
+- Local bindings: `initOpenNextCloudflareForDev()` already in `next.config.ts`
+- Access: `getCloudflareContext({ async: true }).env.PANORAMAS`
+- Upload: `POST /api/uploads/panorama` (auth + ownership; JPEG/PNG/WebP; max 40MB)
+  - Editor Save uses `persistScene=false` (R2 only), then `saveTourDraft` inserts/updates scenes
+  - Legacy: omit flag / `persistScene=true` also inserts a scene row
+- Object key: `tours/{tourId}/{uuid}-{filename}`
+- `scenes.image_url`: `/api/media/...` path (segment-encoded)
+- Serve: `GET /api/media/[...key]` — RLS on `scenes` gates draft vs public active (object must have a scene row)
+- Editor drafts preview via `blob:` until Save; do not point the viewer at `/api/media` before the scene exists
+- Compression: Sharp deferred (Workers-unfriendly); Cloudflare `IMAGES` reserved for later
+
+Keep product logic here; do not push upload/auth into `@jeffgo10/panorama-viewer`.

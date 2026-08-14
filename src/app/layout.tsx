@@ -1,10 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Hubot_Sans } from "next/font/google";
 import { ServiceWorkerRegister } from "@/components/pwa/service-worker-register";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const hubotSans = Hubot_Sans({
+  variable: "--font-hubot-sans",
   subsets: ["latin"],
 });
 
@@ -18,18 +18,18 @@ export const metadata: Metadata = {
     default: "RoamVantage",
     template: "%s · RoamVantage",
   },
-  description: "Create and share immersive 360° virtual property tours.",
+  description: "Create and share immersive 360° virtual tours.",
   applicationName: "RoamVantage",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
     title: "RoamVantage",
   },
   manifest: "/manifest.webmanifest",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#1f6b4a",
+  themeColor: "#092223",
   width: "device-width",
   initialScale: 1,
 };
@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
+    <html lang="en" className={`${hubotSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         {children}
         <ServiceWorkerRegister />

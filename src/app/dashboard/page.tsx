@@ -1,65 +1,92 @@
 import Link from "next/link";
+import { SignOutButton } from "@/components/auth/sign-out-button";
+import { RecentActivity } from "@/components/dashboard/recent-activity";
+import { SummaryCards } from "@/components/dashboard/summary-cards";
+import { ViewsByTour } from "@/components/dashboard/views-by-tour";
+import { ViewsChart } from "@/components/dashboard/views-chart";
 import { AppHeader } from "@/components/layout/app-header";
+import {
+  MOCK_DASHBOARD_SUMMARY,
+  MOCK_DAILY_VIEWS,
+  MOCK_RECENT_ACTIVITY,
+  viewsByTourForOwned,
+} from "@/lib/analytics/mock-dashboard";
 import { FREE_TIER } from "@/lib/constants";
+import { listOwnedTours } from "@/lib/tours/actions";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata = {
   title: "Dashboard",
 };
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  const [{ data: profile }, tours] = await Promise.all([
+    user
+      ? supabase.from("profiles").select("name, email").eq("id", user.id).maybeSingle()
+      : Promise.resolve({ data: null }),
+    listOwnedTours(),
+  ]);
+
+  const displayName = profile?.name?.trim() || profile?.email || user?.email || "A";
+  const initial = displayName.charAt(0).toUpperCase();
+  const activeCount = tours.filter((t) => t.status === "active").length;
+  const viewsByTour = viewsByTourForOwned(
+    tours.map((t) => ({ id: t.id, title: t.title, slug: t.slug })),
+  );
+
   return (
     <div className="flex min-h-full flex-col">
       <AppHeader
         actions={
           <>
-            <span className="hidden text-sm text-zinc-500 sm:inline">
-              0/{FREE_TIER.maxActiveProperties} properties used
-            </span>
-            <button
-              type="button"
-              className="rounded-md border border-border bg-white px-3 py-1.5 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+            <Link
+              href="/tours"
+              className="rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-accent-foreground hover:bg-accent-hover"
             >
-              Upgrade
-            </button>
+              Your tours
+            </Link>
+            <SignOutButton />
             <div
               className="flex h-8 w-8 items-center justify-center rounded-full bg-accent-muted text-xs font-semibold text-accent"
               aria-hidden
+              title={displayName}
             >
-              A
+              {initial}
             </div>
           </>
         }
       />
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-8">
-        <div className="mb-6 flex items-center justify-between gap-4">
-          <h1 className="text-2xl font-semibold tracking-tight">Your properties</h1>
-          <Link
-            href="/properties/new"
-            className="rounded-md bg-accent px-3 py-2 text-sm font-medium text-white hover:bg-[#185a3e]"
-          >
-            New property
-          </Link>
+      <main className="page-rise-delay-1 mx-auto w-full max-w-5xl flex-1 px-4 py-8">
+        <div className="mb-6">
+          <h1 className="text-2xl font-semibold tracking-tight text-foreground">Dashboard</h1>
+          <p className="mt-1 text-sm text-muted">Last 14 days · sample data</p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <EmptyPropertyCard />
+        <div className="space-y-6">
+          <SummaryCards
+            summary={MOCK_DASHBOARD_SUMMARY}
+            activeTours={activeCount}
+            maxActiveTours={FREE_TIER.maxActiveTours}
+          />
+
+          <div className="grid gap-4 lg:grid-cols-5">
+            <div className="lg:col-span-3">
+              <ViewsChart points={MOCK_DAILY_VIEWS} />
+            </div>
+            <div className="lg:col-span-2">
+              <ViewsByTour stats={viewsByTour} />
+            </div>
+          </div>
+
+          <RecentActivity items={MOCK_RECENT_ACTIVITY} />
         </div>
       </main>
-    </div>
-  );
-}
-
-function EmptyPropertyCard() {
-  return (
-    <div className="flex min-h-44 flex-col items-start justify-center border border-dashed border-border bg-white p-5 text-left">
-      <p className="text-sm font-medium text-zinc-800">No properties yet</p>
-      <p className="mt-1 text-sm text-zinc-500">
-        Create a property, upload panoramas, and place navigation hotspots.
-      </p>
-      <Link href="/properties/new" className="mt-4 text-sm font-medium text-accent hover:underline">
-        Create your first property →
-      </Link>
     </div>
   );
 }

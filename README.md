@@ -2,7 +2,7 @@
 
 PWA for real estate **360° virtual tours**. Agents upload equirectangular panoramas, place navigation hotspots between rooms, and share a public link buyers can open on any device.
 
-Phase 0 (discovery) is complete in Obsidian. This repo is the **Phase 1 foundation scaffold**.
+Phase 0 (discovery) is complete in Obsidian. **Phase 1 foundation is wired**: Auth, tour CRUD, R2 panorama upload, and public tours from the DB.
 
 ## Stack
 
@@ -29,7 +29,9 @@ cp .env.example .env.local
 pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). Studio UI: [http://127.0.0.1:54323](http://127.0.0.1:54323).
+Open [http://localhost:3200](http://localhost:3200). Studio UI: [http://127.0.0.1:54323](http://127.0.0.1:54323).
+
+Static fixture tour (no DB): [http://localhost:3200/t/demo](http://localhost:3200/t/demo).
 
 | Script | Purpose |
 |---|---|
@@ -38,17 +40,21 @@ Open [http://localhost:3000](http://localhost:3000). Studio UI: [http://127.0.0.
 | `pnpm db:status` | URLs + anon/service keys |
 | `pnpm db:reset` | Re-run migrations + seed |
 
-### Useful routes (scaffolded)
+### Useful routes
 
 | Route | Purpose |
 |---|---|
 | `/` | Marketing shell |
-| `/login`, `/signup` | Auth placeholders |
-| `/dashboard` | Agent property list |
-| `/properties/new` | Create property form |
-| `/properties/[id]/edit` | Tour editor + Pannellum |
-| `/t/[slug]` | Public viewer (try `/t/demo`) |
+| `/login`, `/signup` | Email/password Auth |
+| `/dashboard` | Agent views overview (mocked metrics) |
+| `/tours` | Agent tour list |
+| `/tours/new` | Create tour |
+| `/tours/[id]/edit` | Tour editor + panorama upload |
+| `/t/[slug]` | Public viewer (published tours) |
+| `/t/demo` | Static fixture tour (no DB) |
 | `/api/health` | Health check |
+| `/api/uploads/panorama` | Authenticated R2 upload |
+| `/api/media/[...key]` | Serve panorama bytes from R2 |
 
 ### Cloudflare preview / deploy
 
@@ -64,25 +70,25 @@ pnpm deploy    # build + deploy to Cloudflare
 
 **Local (default):** `pnpm db:start` applies migrations automatically. Keys via `pnpm db:status -o env`.
 
-**Hosted:** create a Supabase project, `supabase link`, then `supabase db push`. Point `.env.local` at the cloud URL/keys when deploying.
+**Hosted:** create a Supabase project, `supabase link`, then `supabase db push`. Point Workers / preview env at the cloud URL and keys (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`).
 
-Hyperdrive (Workers → Postgres pooling) is commented in `wrangler.jsonc` until you create a config.
+Hyperdrive (Workers → Postgres pooling) is optional for now — the app talks to Supabase over HTTPS (Auth + PostgREST), not a direct Postgres connection. Add a Hyperdrive binding in `wrangler.jsonc` only if you later query Postgres directly from the Worker.
 
 ## Phase 1 checklist (from roadmap)
 
 - [x] Next.js App Router project + folder structure
 - [x] `@opennextjs/cloudflare` + Wrangler config
 - [x] ESLint / Prettier + `.env.example`
-- [x] Domain types + Supabase migration (profiles, properties, scenes, hotspots + RLS)
+- [x] Domain types + Supabase migration (profiles, tours, scenes, hotspots + RLS)
 - [x] PWA shell (manifest + service worker)
 - [x] Placeholder screens: dashboard, editor, public viewer
-- [ ] Wire Supabase Auth for real sign-up/login
-- [ ] R2 upload pipeline + Sharp compression
-- [ ] Billing scaffold (Stripe customer/subscription stubs)
+- [x] Wire Supabase Auth for real sign-up/login
+- [x] R2 upload pipeline (originals; Sharp/IMAGES compression deferred)
+- [x] Billing scaffold (Stripe stubs in `src/lib/stripe.ts`)
 
 ## Pricing (locked)
 
-- **Free** — 2 active properties, watermark, capped scenes
+- **Free** — 2 active tours, watermark, capped scenes
 - **Pro** — $10/mo
 - **Team** — $45/mo (up to 5 seats)
 

@@ -99,7 +99,7 @@ Fix type errors and integration gaps. Key surfaces (evolve as wiring lands):
 | Area | Files |
 |---|---|
 | Viewer wrapper / re-export | `src/components/viewer/` |
-| Tour editor | `src/app/properties/[id]/edit/` |
+| Tour editor | `src/app/tours/[id]/edit/` |
 | Public viewer | `src/app/t/[slug]/` |
 | Hotspot styles | `src/app/globals.css` |
 | Rules pins | `.cursor/rules/roamvantage-viewer.mdc`, `roamvantage-ls-foundry-boundary.mdc` |

@@ -5,6 +5,6 @@ export async function GET() {
   return NextResponse.json({
     ok: true,
     service: "roamvantage",
-    phase: "1-scaffold",
+    phase: "1-foundation",
   });
 }

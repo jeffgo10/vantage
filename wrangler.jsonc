@@ -20,6 +20,8 @@
       "bucket_name": "roamvantage-panoramas"
     }
   ],
+  // Hyperdrive unused while using Supabase Auth + PostgREST over HTTPS.
+  // "hyperdrive": [{ "binding": "HYPERDRIVE", "id": "<hyperdrive-config-id>" }],
   "images": {
     "binding": "IMAGES"
   }

@@ -1,11 +1,11 @@
 {
   "name": "RoamVantage",
   "short_name": "RoamVantage",
-  "description": "Create and share immersive 360° virtual property tours.",
+  "description": "Create and share immersive 360° virtual tours.",
   "start_url": "/dashboard",
   "display": "standalone",
-  "background_color": "#f7f7f5",
-  "theme_color": "#1f6b4a",
+  "background_color": "#092223",
+  "theme_color": "#092223",
   "orientation": "any",
   "icons": [
     {

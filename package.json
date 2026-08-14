@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev --turbopack --port 3200",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
@@ -20,7 +20,7 @@
     "db:lint": "supabase db lint"
   },
   "dependencies": {
-    "@jeffgo10/panorama-viewer": "0.1.2",
+    "@jeffgo10/panorama-viewer": "0.2.0",
     "@supabase/ssr": "^0.12.3",
     "@supabase/supabase-js": "^2.110.8",
     "next": "16.2.11",

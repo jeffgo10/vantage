@@ -8,19 +8,31 @@ alwaysApply: false
 
 ## Package
 
-- `@jeffgo10/panorama-viewer@0.1.2` (ls-foundry)
-- App wrapper: `src/components/viewer/panorama-viewer.tsx` (`dynamic` + `ssr: false` + styles)
+- `@jeffgo10/panorama-viewer@0.2.0` (ls-foundry)
+- App wrapper: `src/components/viewer/panorama-viewer.tsx` (`forwardRef` + `dynamic` + `ssr: false` + styles)
 - `transpilePackages: ["@jeffgo10/panorama-viewer"]` in `next.config.ts`
 - Import CSS via wrapper (`@jeffgo10/panorama-viewer/styles.css`) — do not re-add local Pannellum CDN
 
 ## Usage
 
-- Props: `imageUrl`, `markers` (`PanoramaMarker`), `mode` (`view` | `edit`), `onSphereClick`, `onMarkerClick`, `fitParent`
+- Props: `imageUrl`, `markers` (`PanoramaMarker`), `mode` (`view` | `edit`), `onSphereClick`, `onMarkerClick`, `onMarkerMove`, `fitParent`
+- Gyro (view only): `orientationControl`, `orientationOnByDefault`, `onOrientationChange`; handle `startOrientation` / `stopOrientation`
+- iOS: `deviceOrientationPermissionRequired()` → show “Enable motion” and call `ref.startOrientation()` from a tap
 - Marker kinds: `navigation` | `info` | `label`; content types: text / image / html / rich
-- Used by: `/properties/[id]/edit`, `/t/[slug]`
+- Pin visibility overrides: `src/components/viewer/panorama-hotspots.css` (size, contrast ring, ripple)
+- Used by: `/tours/[id]/edit`, `/t/[slug]`, `/t/demo`
 
 ## Keep in RoamVantage
 
 Scene URLs (R2), hotspot CRUD persistence, tour navigation between scenes, watermarks/tiers, public share UX.
+
+Editor (`TourEditorClient`): **explicit Save** — local draft (blob previews until Save); new tours are not inserted until first Save (`/tours/new/edit`); rename / delete / reorder scenes; place + drag-move hotspots; Save creates tour if needed, uploads R2, reconciles DB; Publish saves first if dirty.
+
+Public viewer: `orientationControl` on; keep off in edit mode.
+
+### Public contact CTA (Free vs Phase 3)
+
+- **Free (now):** one fixed button **Get in touch** → `mailto:` owner email via `TourPayload.contact_email` (RPC `contact_email_for_active_tour`). Hide the button when email is null.
+- **Pro / Team (Phase 3 — not built yet):** editable primary CTA label + action; optional secondary CTA. Free stays fixed mailto. Likely tour-level fields: `cta_primary_label`, `cta_primary_href`, `cta_secondary_*`.
 
 Bump: `/update-ls-foundry-packages`. Boundary: `roamvantage-ls-foundry-boundary.mdc`.
