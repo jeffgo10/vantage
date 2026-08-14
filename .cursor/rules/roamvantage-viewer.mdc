@@ -17,7 +17,7 @@ alwaysApply: false
 
 - Props: `imageUrl`, `markers` (`PanoramaMarker`), `mode` (`view` | `edit`), `onSphereClick`, `onMarkerClick`, `onMarkerMove`, `fitParent`
 - Gyro (view only): `orientationControl`, `orientationOnByDefault`, `onOrientationChange`; handle `startOrientation` / `stopOrientation`
-- iOS: `deviceOrientationPermissionRequired()` → show “Enable motion” and call `ref.startOrientation()` from a tap
+- iOS: `deviceOrientationPermissionRequired()` → show “Enable motion” (top-right overlay, not over Pannellum zoom) and call `ref.startOrientation()` from a tap. Reset `orientationActive` on scene change — Pannellum remounts and does not emit `onOrientationChange(false)` on destroy.
 - Marker kinds: `navigation` | `info` | `label`; content types: text / image / html / rich
 - Pin visibility overrides: `src/components/viewer/panorama-hotspots.css` (size, contrast ring, ripple)
 - Used by: `/tours/[id]/edit`, `/t/[slug]`, `/t/demo`

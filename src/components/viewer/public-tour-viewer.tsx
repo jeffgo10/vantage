@@ -41,8 +41,16 @@ export function PublicTourViewer({ tour }: PublicTourViewerProps) {
   const markers = scene.hotspots.map(hotspotToMarker);
   const needsMotionGesture = permissionRequired && !orientationActive;
 
+  function selectScene(nextSceneId: string) {
+    if (nextSceneId === sceneId) return;
+    setSceneId(nextSceneId);
+    // Scene changes remount Pannellum; gyro does not persist, and the
+    // package does not emit onOrientationChange(false) on destroy.
+    setOrientationActive(false);
+  }
+
   return (
-    <div className="relative h-dvh w-full overflow-hidden bg-black">
+    <div className="relative isolate h-dvh w-full overflow-hidden bg-black">
       <PanoramaViewer
         ref={viewerRef}
         imageUrl={scene.image_url}
@@ -53,7 +61,7 @@ export function PublicTourViewer({ tour }: PublicTourViewerProps) {
         onMarkerClick={(marker) => {
           const hotspot = scene.hotspots.find((h) => h.id === marker.id);
           if (hotspot?.type === "navigation" && hotspot.target_scene_id) {
-            setSceneId(hotspot.target_scene_id);
+            selectScene(hotspot.target_scene_id);
           }
         }}
         className="absolute inset-0 h-full w-full"
@@ -65,7 +73,7 @@ export function PublicTourViewer({ tour }: PublicTourViewerProps) {
           onClick={() => {
             viewerRef.current?.startOrientation();
           }}
-          className="absolute left-3 top-3 z-20 rounded-md bg-surface/95 px-3 py-1.5 text-sm font-medium text-foreground shadow-sm hover:bg-surface-elevated"
+          className="absolute right-3 top-3 z-30 rounded-md bg-surface/95 px-3 py-1.5 text-sm font-medium text-foreground shadow-sm hover:bg-surface-elevated"
         >
           Enable motion
         </button>
@@ -100,7 +108,7 @@ export function PublicTourViewer({ tour }: PublicTourViewerProps) {
               <button
                 key={s.id}
                 type="button"
-                onClick={() => setSceneId(s.id)}
+                onClick={() => selectScene(s.id)}
                 className={`shrink-0 rounded border px-3 py-1.5 text-xs font-medium ${
                   s.id === scene.id
                     ? "border-accent bg-accent text-accent-foreground"
