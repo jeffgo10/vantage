@@ -21,7 +21,7 @@ This repo consumes published `@jeffgo10/*` packages (GitHub Packages) for the 36
 
 | Package | Current pin | Notes |
 |---|---|---|
-| `@jeffgo10/panorama-viewer` | **0.2.0** | Gyro + marker drag; wrapper + `transpilePackages` + styles |
+| `@jeffgo10/panorama-viewer` | **0.2.1** | Gyro after drag; wrapper + `transpilePackages` + styles |
 | Other `@jeffgo10/*` | — | Only add when RoamVantage actually imports them |
 
 ## When RoamVantage needs engine work

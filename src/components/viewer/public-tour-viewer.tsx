@@ -1,7 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState, useSyncExternalStore } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  useSyncExternalStore,
+  type RefObject,
+} from "react";
 import {
   deviceOrientationPermissionRequired,
   PanoramaViewer,
@@ -14,19 +20,74 @@ type PublicTourViewerProps = {
   tour: TourPayload;
 };
 
+/** Pannellum remounts asynchronously; poll until the new viewer can take gyro. */
+const ORIENTATION_RESUME_MAX_ATTEMPTS = 40;
+const ORIENTATION_RESUME_INTERVAL_MS = 50;
+
 function subscribeNoop() {
   return () => {};
+}
+
+function resumeOrientationWhenViewerReady(
+  viewerRef: RefObject<PanoramaViewerHandle | null>,
+  onGaveUp: () => void,
+): () => void {
+  let cancelled = false;
+  let attempts = 0;
+  /** True once the previous scene's viewer has torn down (or was not ready). */
+  let seenGap = false;
+
+  const tryStart = () => {
+    if (cancelled) return;
+    const handle = viewerRef.current;
+    const available = Boolean(handle?.isOrientationAvailable());
+    const active = Boolean(handle?.isOrientationActive());
+
+    if (!available || !active) {
+      seenGap = true;
+    }
+
+    if (seenGap && available && !active) {
+      handle?.startOrientation();
+    }
+
+    if (seenGap && handle?.isOrientationActive()) {
+      return;
+    }
+
+    attempts += 1;
+    if (attempts < ORIENTATION_RESUME_MAX_ATTEMPTS) {
+      window.setTimeout(tryStart, ORIENTATION_RESUME_INTERVAL_MS);
+      return;
+    }
+    onGaveUp();
+  };
+
+  tryStart();
+  return () => {
+    cancelled = true;
+  };
 }
 
 export function PublicTourViewer({ tour }: PublicTourViewerProps) {
   const viewerRef = useRef<PanoramaViewerHandle>(null);
   const [sceneId, setSceneId] = useState(tour.scenes[0]?.id ?? null);
   const [orientationActive, setOrientationActive] = useState(false);
+  const previousSceneIdRef = useRef(sceneId);
   const permissionRequired = useSyncExternalStore(
     subscribeNoop,
     deviceOrientationPermissionRequired,
     () => false,
   );
+
+  useEffect(() => {
+    const sceneChanged = previousSceneIdRef.current !== sceneId;
+    previousSceneIdRef.current = sceneId;
+    if (!orientationActive || !sceneChanged) return;
+    return resumeOrientationWhenViewerReady(viewerRef, () => {
+      setOrientationActive(false);
+    });
+  }, [sceneId, orientationActive]);
 
   const scene = tour.scenes.find((s) => s.id === sceneId) ?? tour.scenes[0] ?? null;
 
@@ -44,9 +105,6 @@ export function PublicTourViewer({ tour }: PublicTourViewerProps) {
   function selectScene(nextSceneId: string) {
     if (nextSceneId === sceneId) return;
     setSceneId(nextSceneId);
-    // Scene changes remount Pannellum; gyro does not persist, and the
-    // package does not emit onOrientationChange(false) on destroy.
-    setOrientationActive(false);
   }
 
   return (
@@ -56,7 +114,7 @@ export function PublicTourViewer({ tour }: PublicTourViewerProps) {
         imageUrl={scene.image_url}
         markers={markers}
         orientationControl
-        orientationOnByDefault={!permissionRequired}
+        orientationOnByDefault={!permissionRequired || orientationActive}
         onOrientationChange={setOrientationActive}
         onMarkerClick={(marker) => {
           const hotspot = scene.hotspots.find((h) => h.id === marker.id);
