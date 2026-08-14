@@ -62,9 +62,11 @@ Static fixture tour (no DB): [http://localhost:3200/t/demo](http://localhost:320
 # Create R2 bucket once (requires wrangler login)
 pnpm exec wrangler r2 bucket create roamvantage-panoramas
 
-pnpm preview   # build + local Workers runtime
-pnpm deploy    # build + deploy to Cloudflare
+pnpm preview      # build + local Workers runtime
+pnpm run deploy   # build + deploy to Cloudflare (not bare `pnpm deploy`)
 ```
+
+CI: `.github/workflows/deploy.yml` runs on push to `master` (and `workflow_dispatch`). Configure the Cloudflare + GitHub Packages secrets and `NEXT_PUBLIC_*` variables listed in that file.
 
 ### Database
 
